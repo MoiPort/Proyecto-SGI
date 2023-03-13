@@ -1,7 +1,7 @@
 <template>
 	<form>
 		<b-field label="Nombre del cliente" >
-            <b-input step="any" icon="account" type="text" placeholder="Ej. Don Paco" v-model="datosCliente.nombre"></b-input>
+            <b-input step="any" icon="account" type="text" placeholder="Ej. Don Rosalio" v-model="datosCliente.nombre"></b-input>
         </b-field>
         <b-field label="Teléfono del cliente" >
             <b-input step="any" icon="phone" type="number" placeholder="Ej. 2311459874" v-model="datosCliente.telefono"></b-input>

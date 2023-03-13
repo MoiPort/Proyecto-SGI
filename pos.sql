@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 11-03-2023 a las 23:48:15
--- Versión del servidor: 10.4.27-MariaDB
--- Versión de PHP: 8.2.0
+-- Host: localhost
+-- Generation Time: Mar 13, 2023 at 09:42 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `pos`
+-- Database: `pos`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categorias`
+-- Table structure for table `categorias`
 --
 
 CREATE TABLE `categorias` (
@@ -32,10 +32,17 @@ CREATE TABLE `categorias` (
   `nombreCategoria` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `categorias`
+--
+
+INSERT INTO `categorias` (`id`, `nombreCategoria`) VALUES
+(9, 'USB');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `clientes`
+-- Table structure for table `clientes`
 --
 
 CREATE TABLE `clientes` (
@@ -44,10 +51,17 @@ CREATE TABLE `clientes` (
   `telefono` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `nombre`, `telefono`) VALUES
+(8, 'Rosalio Monterrosa', '70392202');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `configuracion`
+-- Table structure for table `configuracion`
 --
 
 CREATE TABLE `configuracion` (
@@ -57,16 +71,16 @@ CREATE TABLE `configuracion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `configuracion`
+-- Dumping data for table `configuracion`
 --
 
 INSERT INTO `configuracion` (`nombre`, `telefono`, `logo`) VALUES
-('Tienda SGI', '75334808', './logos/logo.png');
+('Innovatech', '75334808', './logos/logo.png');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cotizaciones`
+-- Table structure for table `cotizaciones`
 --
 
 CREATE TABLE `cotizaciones` (
@@ -80,7 +94,7 @@ CREATE TABLE `cotizaciones` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `cuentas_apartados`
+-- Table structure for table `cuentas_apartados`
 --
 
 CREATE TABLE `cuentas_apartados` (
@@ -94,10 +108,18 @@ CREATE TABLE `cuentas_apartados` (
   `idUsuario` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `cuentas_apartados`
+--
+
+INSERT INTO `cuentas_apartados` (`id`, `fecha`, `total`, `pagado`, `porPagar`, `tipo`, `idCliente`, `idUsuario`) VALUES
+(9, '2023-03-12 22:21:29', '12.00', '12.00', '0.00', 'cuenta', 8, 1),
+(10, '2023-03-12 22:22:12', '12.00', '12.00', '0.00', 'apartado', 8, 1);
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `marcas`
+-- Table structure for table `marcas`
 --
 
 CREATE TABLE `marcas` (
@@ -105,10 +127,17 @@ CREATE TABLE `marcas` (
   `nombreMarca` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `marcas`
+--
+
+INSERT INTO `marcas` (`id`, `nombreMarca`) VALUES
+(13, 'PELIKAN');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos`
+-- Table structure for table `productos`
 --
 
 CREATE TABLE `productos` (
@@ -125,10 +154,17 @@ CREATE TABLE `productos` (
   `categoria` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `productos`
+--
+
+INSERT INTO `productos` (`id`, `codigo`, `nombre`, `precioCompra`, `precioVenta`, `existencia`, `vendidoMayoreo`, `precioMayoreo`, `cantidadMayoreo`, `marca`, `categoria`) VALUES
+(10, '0001001001', 'USB 128GB ', '8.00', '12.00', 496, 1, '10.00', '50.00', 13, 9);
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos_vendidos`
+-- Table structure for table `productos_vendidos`
 --
 
 CREATE TABLE `productos_vendidos` (
@@ -140,10 +176,21 @@ CREATE TABLE `productos_vendidos` (
   `tipo` enum('apartado','cuenta','venta','cotiza') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `productos_vendidos`
+--
+
+INSERT INTO `productos_vendidos` (`id`, `cantidad`, `precio`, `idProducto`, `idReferencia`, `tipo`) VALUES
+(63, '500.00', '10.00', 10, 18, 'venta'),
+(64, '1.00', '12.00', 10, 19, 'venta'),
+(65, '1.00', '12.00', 10, 9, 'cuenta'),
+(66, '1.00', '12.00', 10, 10, 'apartado'),
+(68, '1.00', '12.00', 10, 20, 'venta');
+
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Table structure for table `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -155,17 +202,19 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Dumping data for table `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `usuario`, `nombre`, `telefono`, `password`) VALUES
 (1, 'paco_hunter_dev', 'Francisco Rivera Hills', '2311459874', '$2y$10$gzUnjFNk5SUh3yGh2OXYeuIDtkzqUCGnJUnThqXjWoVU0/C9QCJb.'),
-(7, 'moises', 'Moises Alexander Portillo Ramos', '75334808', '$2y$10$wC.zfAE4DCig2WAySTEmA.bAQEw0nTbC5iygghUkFhbrIffHbAiGa');
+(7, 'moises', 'Moises Alexander Portillo Ramos', '75334808', '$2y$10$wC.zfAE4DCig2WAySTEmA.bAQEw0nTbC5iygghUkFhbrIffHbAiGa'),
+(8, 'Rosalio', 'Rosalio Alfredo Monterrosa Valle', '73302281', '$2y$10$jxTFltW7P7NHzaEmKnOey.7LQD0AKaljfxkCG3VMlUiBxrRqdhViq'),
+(10, 'a', 'a', '1', '$2y$10$lXAm/cyI38Y9tBEWM0mnpOXUVsJbIX6fiPcZ3WXCW9M3yZL.LL.l.');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ventas`
+-- Table structure for table `ventas`
 --
 
 CREATE TABLE `ventas` (
@@ -178,120 +227,129 @@ CREATE TABLE `ventas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Índices para tablas volcadas
+-- Dumping data for table `ventas`
+--
+
+INSERT INTO `ventas` (`id`, `fecha`, `total`, `pagado`, `idCliente`, `idUsuario`) VALUES
+(18, '2023-03-12 22:08:43', '5000.00', '5000.00', 0, 1),
+(19, '2023-03-12 22:11:35', '12.00', '12.00', 0, 1),
+(20, '2023-03-13 17:12:20', '12.00', '12.00', 0, 1);
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `categorias`
+-- Indexes for table `categorias`
 --
 ALTER TABLE `categorias`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `clientes`
+-- Indexes for table `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `cotizaciones`
+-- Indexes for table `cotizaciones`
 --
 ALTER TABLE `cotizaciones`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `cuentas_apartados`
+-- Indexes for table `cuentas_apartados`
 --
 ALTER TABLE `cuentas_apartados`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `marcas`
+-- Indexes for table `marcas`
 --
 ALTER TABLE `marcas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `productos`
+-- Indexes for table `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `productos_vendidos`
+-- Indexes for table `productos_vendidos`
 --
 ALTER TABLE `productos_vendidos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `ventas`
+-- Indexes for table `ventas`
 --
 ALTER TABLE `ventas`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `categorias`
+-- AUTO_INCREMENT for table `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de la tabla `clientes`
---
-ALTER TABLE `clientes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de la tabla `cotizaciones`
---
-ALTER TABLE `cotizaciones`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `cuentas_apartados`
---
-ALTER TABLE `cuentas_apartados`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de la tabla `marcas`
---
-ALTER TABLE `marcas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT de la tabla `productos`
---
-ALTER TABLE `productos`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT de la tabla `productos_vendidos`
+-- AUTO_INCREMENT for table `clientes`
 --
-ALTER TABLE `productos_vendidos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+ALTER TABLE `clientes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT for table `cotizaciones`
 --
-ALTER TABLE `usuarios`
+ALTER TABLE `cotizaciones`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de la tabla `ventas`
+-- AUTO_INCREMENT for table `cuentas_apartados`
+--
+ALTER TABLE `cuentas_apartados`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `marcas`
+--
+ALTER TABLE `marcas`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `productos_vendidos`
+--
+ALTER TABLE `productos_vendidos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+
+--
+-- AUTO_INCREMENT for table `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

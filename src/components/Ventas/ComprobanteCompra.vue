@@ -3,7 +3,7 @@
         <div class="comprobante" id="comprobante" v-if="datosNegocio">
             <p><b>{{ titulo }}</b></p>
             <p>{{ datosNegocio.nombre }} Teléfono: {{ datosNegocio.telefono }}</p>
-            <img :src="datosNegocio.logo" alt="Aqui el logo" width="30">
+            
             <p><b>Cliente:</b>{{ venta.nombreCliente }}</p>
             <p><b>Atiende:</b>{{ venta.nombreUsuario }}</p>
             <p><b>Fecha: </b>{{ venta.fecha }}</p>
@@ -28,7 +28,7 @@
             <p><b>Gracias por su preferencia</b></p>
             <p>----------------------------</p>
             <p>Sistema de ventas por</p>
-            <img src="@/assets/logo.png" width="120">
+            <img src="@/assets/logo.jpeg" width="120">
         </div>
     </section>
 </template>

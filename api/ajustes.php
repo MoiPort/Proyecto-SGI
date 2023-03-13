@@ -22,7 +22,7 @@ switch ($accion) {
 			$ajustes = [
 				"nombre" => "POSPacoHunterDev",
 				"telefono" => "777666123",
-				"logo" => "/logos/logo.png"
+				"logo" => "/logos/logo.jpeg"
 			];
 		}
 		echo json_encode($ajustes);

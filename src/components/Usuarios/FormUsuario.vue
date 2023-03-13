@@ -1,13 +1,13 @@
 <template>
 	<form>
 		<b-field label="Nombre de usuario" >
-            <b-input  icon="shield-account" type="text" placeholder="Ej. paco" v-model="datosUsuario.usuario"></b-input>
+            <b-input  icon="shield-account" type="text" placeholder="Ej. Rosalio" v-model="datosUsuario.usuario"></b-input>
         </b-field>
         <b-field label="Nombre completo " >
-            <b-input  icon="account" type="text" placeholder="Ej. Francisco Perez Tezcatlipoca" v-model="datosUsuario.nombre"></b-input>
+            <b-input  icon="account" type="text" placeholder="Ej. Rosalio Alfredo Monterrosa Valle" v-model="datosUsuario.nombre"></b-input>
         </b-field>
         <b-field label="Teléfono del usuario" >
-            <b-input step="any" icon="phone" type="number" placeholder="Ej. 2311459874" v-model="datosUsuario.telefono"></b-input>
+            <b-input step="any" icon="phone" type="number" placeholder="Ej. 73302281" v-model="datosUsuario.telefono"></b-input>
         </b-field>
 
          <div class="buttons has-text-centered">

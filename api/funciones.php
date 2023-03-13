@@ -39,7 +39,7 @@ function codificar($imagen) {
     $imagen = str_replace('data:image/jpeg;base64,', '', $imagen);
     $imagen = str_replace(' ', '+', $imagen);
     $data = base64_decode($imagen);
-    $file = DIRECTORIO. 'logo.png';
+    $file = DIRECTORIO. 'logo.jpeg';
             
             
     $insertar = file_put_contents($file, $data);
