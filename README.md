@@ -1,2 +1,2 @@
-# pos
- Punto de venta en PHP, MySQL y Vue. Puede registrar ventas, cuentas, apartados y cotizaciones.
+# SIG
+ Sistema informático gerencial para la recopilación de datos transaccionales del sistema de ventas e inventario "InnovaTech" para la toma de decisiones.
