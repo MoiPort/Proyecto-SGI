@@ -25,7 +25,8 @@
             datosUsuario: {
                 usuario: "",
                 nombre: "",
-                telefono: ""
+                telefono: "",
+                rol_id: ""
             }
         }),
 

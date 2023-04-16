@@ -406,7 +406,8 @@ function obtenerVentasPorUsuario(){
 }
 
 function iniciarSesion($usuario){
-	$sentencia = "SELECT * FROM usuarios WHERE usuario = ?";
+	//$sentencia = "SELECT * FROM usuarios WHERE usuario = ?";
+	$sentencia = "select u.id, u.usuario, u.rol_id, r.rol from usuarios as u inner join rol as r on u.rol_id = r.id where u.usuario = ?";
 	$parametros = [$usuario->usuario];
 	$resultado = selectRegresandoObjeto($sentencia, $parametros);
 	if($resultado){
@@ -415,7 +416,8 @@ function iniciarSesion($usuario){
 			$datos = [
 				"id" => $resultado->id,
 				"usuario" => $resultado->usuario,
-				"nombre" => $resultado->nombre
+				"nombre" => $resultado->nombre,
+				"rol" => $resultado->rol_id
 			];	
 
 			return ["estado" => $loginCorrecto, "usuario" => $datos];
@@ -430,8 +432,9 @@ function verificarPassword($idUsuario, $password){
 	$sentencia = "SELECT password FROM usuarios WHERE id = ?";
 	$parametros = [$idUsuario];
 	$resultado = selectRegresandoObjeto($sentencia, $parametros);
-	$verificar = password_verify($password, $resultado->password);
-	if($verificar) return true;
+	// $verificar = password_verify($password, $resultado->password);
+
+	if(($password == $resultado->password) ? true : false) return true;
 	return false;
 }
 
@@ -441,8 +444,8 @@ function cambiarPassword($idUsuario, $password){
 	return editar($sentencia, $parametros);
 }
 function registrarUsuario($usuario){
-	$sentencia = "INSERT INTO usuarios (usuario, nombre, telefono, password) VALUES (?,?,?,?)";
-	$parametros = [$usuario->usuario, $usuario->nombre, $usuario->telefono, $usuario->password];
+	$sentencia = "INSERT INTO usuarios (usuario, nombre, telefono, password, rol_id) VALUES (?,?,?,?, ?)";
+	$parametros = [$usuario->usuario, $usuario->nombre, $usuario->telefono, $usuario->password, $usuario->rol_id];
 	return insertar($sentencia, $parametros);
 }
 

@@ -9,6 +9,14 @@
         <b-field label="Teléfono del usuario" >
             <b-input step="any" icon="phone" type="number" placeholder="Ej. 73302281" v-model="datosUsuario.telefono"></b-input>
         </b-field>
+		<b-field label="Rol del usuario" >
+			<b-select name="rol_id" id="rol_id" v-model="datosUsuario.rol_id">
+				<option value="1" selected>Vendedor</option>
+				<option value="2">Gerente</option>
+				<option value="3">Dueño</option>
+			</b-select>
+            <!-- <b-input step="any" icon="notebook" type="number" placeholder="1" v-model="datosUsuario.rol_id"></b-input> -->
+        </b-field>
 
          <div class="buttons has-text-centered">
             <b-button type="is-primary" size="is-large" icon-left="check" @click="registrar">Registrar</b-button>

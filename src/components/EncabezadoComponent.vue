@@ -139,7 +139,9 @@
         }),
 
         mounted(){
-            this.usuario = AyudanteSesion.obtenerDatosSesion().usuario
+            this.usuario = AyudanteSesion.obtenerDatosSesion().usuario + " - " + AyudanteSesion.obtenerDatosSesion().rol
+
+            console.log(AyudanteSesion.obtenerDatosSesion());
         },
 
         methods: {

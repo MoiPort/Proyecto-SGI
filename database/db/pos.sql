@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 13, 2023 at 09:42 PM
+-- Generation Time: Apr 16, 2023 at 05:05 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -32,13 +32,6 @@ CREATE TABLE `categorias` (
   `nombreCategoria` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `categorias`
---
-
-INSERT INTO `categorias` (`id`, `nombreCategoria`) VALUES
-(9, 'USB');
-
 -- --------------------------------------------------------
 
 --
@@ -50,13 +43,6 @@ CREATE TABLE `clientes` (
   `nombre` varchar(100) NOT NULL,
   `telefono` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `clientes`
---
-
-INSERT INTO `clientes` (`id`, `nombre`, `telefono`) VALUES
-(8, 'Rosalio Monterrosa', '70392202');
 
 -- --------------------------------------------------------
 
@@ -75,7 +61,7 @@ CREATE TABLE `configuracion` (
 --
 
 INSERT INTO `configuracion` (`nombre`, `telefono`, `logo`) VALUES
-('Innovatech', '75334808', './logos/logo.png');
+('CUBASSV', '73302281', './logos/logo.jpeg');
 
 -- --------------------------------------------------------
 
@@ -108,14 +94,6 @@ CREATE TABLE `cuentas_apartados` (
   `idUsuario` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `cuentas_apartados`
---
-
-INSERT INTO `cuentas_apartados` (`id`, `fecha`, `total`, `pagado`, `porPagar`, `tipo`, `idCliente`, `idUsuario`) VALUES
-(9, '2023-03-12 22:21:29', '12.00', '12.00', '0.00', 'cuenta', 8, 1),
-(10, '2023-03-12 22:22:12', '12.00', '12.00', '0.00', 'apartado', 8, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -126,13 +104,6 @@ CREATE TABLE `marcas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nombreMarca` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `marcas`
---
-
-INSERT INTO `marcas` (`id`, `nombreMarca`) VALUES
-(13, 'PELIKAN');
 
 -- --------------------------------------------------------
 
@@ -154,13 +125,6 @@ CREATE TABLE `productos` (
   `categoria` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `productos`
---
-
-INSERT INTO `productos` (`id`, `codigo`, `nombre`, `precioCompra`, `precioVenta`, `existencia`, `vendidoMayoreo`, `precioMayoreo`, `cantidadMayoreo`, `marca`, `categoria`) VALUES
-(10, '0001001001', 'USB 128GB ', '8.00', '12.00', 496, 1, '10.00', '50.00', 13, 9);
-
 -- --------------------------------------------------------
 
 --
@@ -176,16 +140,25 @@ CREATE TABLE `productos_vendidos` (
   `tipo` enum('apartado','cuenta','venta','cotiza') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `productos_vendidos`
+-- Table structure for table `rol`
 --
 
-INSERT INTO `productos_vendidos` (`id`, `cantidad`, `precio`, `idProducto`, `idReferencia`, `tipo`) VALUES
-(63, '500.00', '10.00', 10, 18, 'venta'),
-(64, '1.00', '12.00', 10, 19, 'venta'),
-(65, '1.00', '12.00', 10, 9, 'cuenta'),
-(66, '1.00', '12.00', 10, 10, 'apartado'),
-(68, '1.00', '12.00', 10, 20, 'venta');
+CREATE TABLE `rol` (
+  `id` bigint(20) NOT NULL,
+  `rol` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `rol`
+--
+
+INSERT INTO `rol` (`id`, `rol`) VALUES
+(3, 'Dueño'),
+(2, 'Gerente'),
+(1, 'Vendedor');
 
 -- --------------------------------------------------------
 
@@ -198,18 +171,16 @@ CREATE TABLE `usuarios` (
   `usuario` varchar(50) NOT NULL,
   `nombre` varchar(100) NOT NULL,
   `telefono` varchar(20) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `rol_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `usuario`, `nombre`, `telefono`, `password`) VALUES
-(1, 'paco_hunter_dev', 'Francisco Rivera Hills', '2311459874', '$2y$10$gzUnjFNk5SUh3yGh2OXYeuIDtkzqUCGnJUnThqXjWoVU0/C9QCJb.'),
-(7, 'moises', 'Moises Alexander Portillo Ramos', '75334808', '$2y$10$wC.zfAE4DCig2WAySTEmA.bAQEw0nTbC5iygghUkFhbrIffHbAiGa'),
-(8, 'Rosalio', 'Rosalio Alfredo Monterrosa Valle', '73302281', '$2y$10$jxTFltW7P7NHzaEmKnOey.7LQD0AKaljfxkCG3VMlUiBxrRqdhViq'),
-(10, 'a', 'a', '1', '$2y$10$lXAm/cyI38Y9tBEWM0mnpOXUVsJbIX6fiPcZ3WXCW9M3yZL.LL.l.');
+INSERT INTO `usuarios` (`id`, `usuario`, `nombre`, `telefono`, `password`, `rol_id`) VALUES
+(1, 'admin', 'administrador', '73302281', 'SGI', 3);
 
 -- --------------------------------------------------------
 
@@ -225,15 +196,6 @@ CREATE TABLE `ventas` (
   `idCliente` bigint(20) DEFAULT NULL,
   `idUsuario` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `ventas`
---
-
-INSERT INTO `ventas` (`id`, `fecha`, `total`, `pagado`, `idCliente`, `idUsuario`) VALUES
-(18, '2023-03-12 22:08:43', '5000.00', '5000.00', 0, 1),
-(19, '2023-03-12 22:11:35', '12.00', '12.00', 0, 1),
-(20, '2023-03-13 17:12:20', '12.00', '12.00', 0, 1);
 
 --
 -- Indexes for dumped tables
@@ -282,10 +244,18 @@ ALTER TABLE `productos_vendidos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rol`
+--
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`rol`);
+
+--
 -- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_rol` (`rol_id`);
 
 --
 -- Indexes for table `ventas`
@@ -301,55 +271,71 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT for table `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cotizaciones`
 --
 ALTER TABLE `cotizaciones`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cuentas_apartados`
 --
 ALTER TABLE `cuentas_apartados`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `productos_vendidos`
 --
 ALTER TABLE `productos_vendidos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `fk_rol` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

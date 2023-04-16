@@ -13,9 +13,8 @@ $accion = $payload->accion;
 
 switch ($accion) {
 	case 'registrar':
-		$password =  password_hash(PASSWORD, PASSWORD_DEFAULT);
 		$usuario = $payload->usuario;
-		$usuario->password = $password;
+		$usuario->password = "SGI";
 		echo json_encode(registrarUsuario($usuario));
 		break;
 
@@ -48,7 +47,7 @@ switch ($accion) {
 		break;
 
 	case 'cambiar_password':
-		$password =  password_hash($payload->password, PASSWORD_DEFAULT);
+		$password =  $payload->password;
 		echo json_encode(cambiarPassword($payload->idUsuario, $password));
 		break;
 	
